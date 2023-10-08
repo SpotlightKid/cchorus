@@ -118,7 +118,12 @@ protected:
 
 private:
     double          fSampleRate;
-    CChorus*     dsp;
+    CChorus*        dsp;
+    float* input0;
+    float* output0;
+    float* bypass;
+    float bypass_;
+    bool  needs_ramp_down;
 
     DISTRHO_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PluginCChorus)
 };
@@ -131,7 +136,18 @@ struct Preset {
 const Preset factoryPresets[] = {
     {
         "Default",
-        {-6.0f,}
+        {
+            3.5f,    // Delay
+            0.35f,   // Mod_Amount
+            6000.0f, // LPF_Cutoff
+            100.0f,  // HPF_Cutoff
+            1.0f,    // Waveform
+            0.8f,    // Freq_L
+            1.0f,    // Freq_R_Ratio
+            90.0f,   // L_R_Phase_Offset
+            -3.5f,   // Dry
+            -3.5f,   // Wet
+        }
     }
     //,{
     //    "Another preset",  // preset name

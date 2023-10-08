@@ -25,6 +25,7 @@
  */
 
 #include "PluginCChorus.hpp"
+#include <string.h>
 
 START_NAMESPACE_DISTRHO
 
@@ -62,7 +63,7 @@ void PluginCChorus::initParameter(uint32_t index, Parameter& parameter) {
     parameter.ranges.min = range->min;
     parameter.ranges.max = range->max;
     parameter.ranges.def = range->init;
-    parameter.hints = kParameterIsAutomable;
+    parameter.hints = kParameterIsAutomatable;
 
     if (dsp->parameter_is_boolean(index))
         parameter.hints |= kParameterIsBoolean;
@@ -80,6 +81,7 @@ void PluginCChorus::initParameter(uint32_t index, Parameter& parameter) {
 */
 void PluginCChorus::initProgramName(uint32_t index, String& programName) {
     if (index < presetCount) {
+        if (index =
         programName = factoryPresets[index].name;
     }
 }
@@ -140,7 +142,80 @@ void PluginCChorus::activate() {
 
 void PluginCChorus::run(const float** inputs, float** outputs,
                         uint32_t frames) {
-    dsp->process(inputs[0], inputs[1], outputs[0], outputs[1], (unsigned)frames);
+    if (frames<1) return;
+
+    // do inplace processing by default
+    if (outputs[0] != inputs[0]) {
+        memcpy(output[0], input[0], frames * sizeof(float));
+        memcpy(output[1], input[1], frames * sizeof(float));
+    }
+
+    float buf0[frames];
+
+    // check if bypass is pressed
+    if (bypass_ != static_cast<uint32_t>(*(bypass))) {
+        bypass_ = static_cast<uint32_t>(*(bypass));
+
+        if (!bypass_) {
+            needs_ramp_down = true;
+            needs_ramp_up = false;
+        } else {
+            needs_ramp_down = false;
+            needs_ramp_up = true;
+            bypassed = false;
+        }
+    }
+
+    if (needs_ramp_down || needs_ramp_up) {
+        memcpy(buf0, input0, frames * sizeof(float));
+    }
+
+    if (!bypassed) {
+        dsp->process(inputs[0], inputs[1], outputs[0], outputs[1], (unsigned)frames);
+        //dsp->compute(frames, output0, output0);
+    }
+
+    // check if ramping is needed
+    if (needs_ramp_down) {
+        float fade = 0;
+        for (uint32_t i=0; i<frames; i++) {
+            if (ramp_down >= 0.0) {
+                --ramp_down;
+            }
+            fade = max(0.0f,ramp_down) /ramp_down_step ;
+            output0[i] = output0[i] * fade + buf0[i] * (1.0 - fade);
+        }
+        if (ramp_down <= 0.0) {
+            // when ramped down, clear buffer from dsp
+            dsp->clear_state_f();
+            needs_ramp_down = false;
+            bypassed = true;
+            ramp_down = ramp_down_step;
+            ramp_up = 0.0;
+        } else {
+            ramp_up = ramp_down;
+        }
+    } else if (needs_ramp_up) {
+        bypassed = false;
+        float fade = 0;
+
+        for (uint32_t i=0; i<frames; i++) {
+            if (ramp_up < ramp_up_step) {
+                ++ramp_up ;
+            }
+            fade = min(ramp_up_step,ramp_up) / ramp_up_step;
+            output0[i] = output0[i] * fade + buf0[i] * (1.0 - fade);
+        }
+
+        if (ramp_up >= ramp_up_step) {
+            needs_ramp_up = false;
+            ramp_up = 0.0;
+            ramp_down = ramp_down_step;
+        }
+        else {
+            ramp_down = ramp_up;
+        }
+    }
 }
 
 // -----------------------------------------------------------------------
