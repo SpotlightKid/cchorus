@@ -33,7 +33,6 @@ lfo_phase_r = lfo_group(hslider("[4] L/R Phase Offset [unit:degree] [style:knob]
 out_group(x) = hgroup("Output", x);
 dry = out_group(hslider("[1] Dry [unit:dB] [style:knob]", -3.5, -60, 10, 0.1) : ba.db2linear);
 wet = out_group(hslider("[2] Wet [unit:dB] [style:knob]", -3.5, -60, 10, 0.1) : ba.db2linear);
-bypass_switch = out_group(checkbox("[3] Bypass"));
 
 // Modulation LFOs
 
@@ -71,4 +70,4 @@ with {
 chorus_l = chorus_mono(delay_l, lpf : hpf, dry, wet);
 chorus_r = chorus_mono(delay_r, lpf : hpf, dry, wet);
 
-process = _, _ <: select2(bypass_switch, chorus_l), select2(bypass_switch, chorus_r);
+process = chorus_l, chorus_r;

@@ -48,6 +48,21 @@ START_NAMESPACE_DISTRHO
 
 class PluginCChorus : public Plugin {
 public:
+    enum Parameters {
+        Delay,
+        Mod_Amount,
+        LPF_Cutoff,
+        HPF_Cutoff,
+        Waveform,
+        Freq_L,
+        Freq_R_Ratio,
+        L_R_Phase_Offset,
+        Dry,
+        Wet,
+        BypassProcess,
+        paramCount
+    };
+
     PluginCChorus();
 
     ~PluginCChorus();
@@ -80,13 +95,8 @@ protected:
         return d_version(0, 1, 0);
     }
 
-    // Go to:
-    //
-    // http://service.steinberg.de/databases/plugin.nsf/plugIn
-    //
-    // Get a proper plugin UID and fill it in here!
     int64_t getUniqueId() const noexcept override {
-        return d_cconst('a', 'b', 'c', 'd');
+        return d_cconst('c', 'c', 'h', 'r');
     }
 
     // -------------------------------------------------------------------
@@ -117,20 +127,28 @@ protected:
     // -------------------------------------------------------------------
 
 private:
-    double          fSampleRate;
-    CChorus*        dsp;
-    float* input0;
-    float* output0;
-    float* bypass;
-    float bypass_;
-    bool  needs_ramp_down;
+    // pointer to dsp class
+    CChorus* dsp;
+    // sample rate
+    double sample_rate;
+    bool sr_changed;
+    // enable/bypass ramping
+    bool needs_ramp_down;
+    bool needs_ramp_up;
+    float ramp_down;
+    float ramp_up;
+    float ramp_up_step;
+    float ramp_down_step;
+    bool state_bypass;
+    bool old_bypass;
+    float param_bypass;
 
     DISTRHO_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PluginCChorus)
 };
 
 struct Preset {
     const char* name;
-    float params[CChorus::NumParameters];
+    float params[PluginCChorus::paramCount];
 };
 
 const Preset factoryPresets[] = {
@@ -147,11 +165,12 @@ const Preset factoryPresets[] = {
             90.0f,   // L_R_Phase_Offset
             -3.5f,   // Dry
             -3.5f,   // Wet
+            0.0,     // BypassProcess
         }
     }
     //,{
     //    "Another preset",  // preset name
-    //    {-14.0f, ...}      // array of CChorus::NumParameters float param values
+    //    {-14.0f, ...}      // array of PluginCChorus::paramCount float param values
     //}
 };
 

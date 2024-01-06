@@ -6,7 +6,7 @@
 // Source: cchorus.dsp
 // Name: CChorus
 // Author: Christopher Arndt
-// Copyright:
+// Copyright: 
 // License: MIT License
 // Version: 0.5
 //------------------------------------------------------------------------------
@@ -37,9 +37,9 @@ public:
 
     enum { NumInputs = 2 };
     enum { NumOutputs = 2 };
-    enum { NumActives = 11 };
+    enum { NumActives = 10 };
     enum { NumPassives = 0 };
-    enum { NumParameters = 11 };
+    enum { NumParameters = 10 };
 
     enum Parameter {
         p_Delay,
@@ -52,7 +52,7 @@ public:
         p_L_R_Phase_Offset,
         p_Dry,
         p_Wet,
-        p_Bypass,
+        
     };
 
     struct ParameterRange {
@@ -74,52 +74,48 @@ public:
     float get_parameter(unsigned index) const noexcept;
     void set_parameter(unsigned index, float value) noexcept;
 
-
+    
     float get_Delay() const noexcept;
-
+    
     float get_Mod_Amount() const noexcept;
-
+    
     float get_LPF_Cutoff() const noexcept;
-
+    
     float get_HPF_Cutoff() const noexcept;
-
+    
     float get_Waveform() const noexcept;
-
+    
     float get_Freq_L() const noexcept;
-
+    
     float get_Freq_R_Ratio() const noexcept;
-
+    
     float get_L_R_Phase_Offset() const noexcept;
-
+    
     float get_Dry() const noexcept;
-
+    
     float get_Wet() const noexcept;
-
-    float get_Bypass() const noexcept;
-
-
+    
+    
     void set_Delay(float value) noexcept;
-
+    
     void set_Mod_Amount(float value) noexcept;
-
+    
     void set_LPF_Cutoff(float value) noexcept;
-
+    
     void set_HPF_Cutoff(float value) noexcept;
-
+    
     void set_Waveform(float value) noexcept;
-
+    
     void set_Freq_L(float value) noexcept;
-
+    
     void set_Freq_R_Ratio(float value) noexcept;
-
+    
     void set_L_R_Phase_Offset(float value) noexcept;
-
+    
     void set_Dry(float value) noexcept;
-
+    
     void set_Wet(float value) noexcept;
-
-    void set_Bypass(float value) noexcept;
-
+    
 
 public:
     class BasicDsp;
