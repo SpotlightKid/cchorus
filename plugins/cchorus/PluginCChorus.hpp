@@ -56,7 +56,7 @@ public:
         Waveform,
         Freq_L,
         Freq_R_Ratio,
-        L_R_Phase_Offset,
+        Phase_Offset,
         Dry,
         Wet,
         BypassProcess,
@@ -162,7 +162,7 @@ const Preset factoryPresets[] = {
             1.0f,    // Waveform
             0.8f,    // Freq_L
             1.0f,    // Freq_R_Ratio
-            90.0f,   // L_R_Phase_Offset
+            90.0f,   // Phase_Offset
             -3.5f,   // Dry
             -3.5f,   // Wet
             0.0,     // BypassProcess

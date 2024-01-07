@@ -1,5 +1,5 @@
 declare name "CChorus";
-declare version "0.5";
+declare version "0.6";
 declare author "Christopher Arndt";
 declare license "MIT License";
 declare description "A versatile stereo chorus effect";
@@ -15,24 +15,24 @@ MAX_DELAY_MS = 20;
 // Delay section
 
 del_group(x) = hgroup("Delay", x);
-delay_ms = del_group(hslider("[1] Delay [unit:ms] [style:knob]", 3.5, 0, MAX_DELAY_MS, 0.001) : si.smoo);
-delay_mod = del_group(hslider("[2] Mod Amount [style:knob]", 0.35, 0, 1, 0.001) : si.smoo);
-lpf_cutoff = del_group(hslider("[3] LPF Cutoff [unit:Hz] [scale:log] [style:knob]", 5000, 20, 10000, 0.1)): si.smoo;
-hpf_cutoff = del_group(hslider("[4] HPF Cutoff [unit:Hz] [scale:log] [style:knob]", 20, 20, 5000, 0.1)): si.smoo;
+delay_ms = del_group(hslider("[1] Delay Length [abbrev:Delay] [symbol:delay] [unit:ms] [style:knob]", 3.5, 0, MAX_DELAY_MS, 0.001) : si.smoo);
+delay_mod = del_group(hslider("[2] Modulation Amount [abbrev:Mod. Amount] [symbol:mod_amount] [style:knob]", 0.35, 0, 1, 0.001) : si.smoo);
+lpf_cutoff = del_group(hslider("[3] LPF Cutoff [abbrev:LPF] [symbol:lpf_cutoff] [unit:Hz] [scale:log] [style:knob]", 5000, 20, 10000, 0.1)): si.smoo;
+hpf_cutoff = del_group(hslider("[4] HPF Cutoff [abbrev:HPF] [symbol:hpf_cutoff] [unit:Hz] [scale:log] [style:knob]", 20, 20, 5000, 0.1)): si.smoo;
 
 // LFO section
 
 lfo_group(x) = hgroup("LFO", x);
-lfo_switch = lfo_group(hslider("[1] Waveform [style:radio{'Sine':0;'Triangle':1}]", 1, 0, 1, 1));
-lfo_freq_l = lfo_group(hslider("[2] Freq L [unit:Hz] [style:knob]", 0.8, 0.001, 10, 0.01));
-lfo_freq_r = lfo_group(hslider("[3] Freq R Ratio [style:knob]", 1.0, 0.01, 2, 0.01)) * lfo_freq_l;
-lfo_phase_r = lfo_group(hslider("[4] L/R Phase Offset [unit:degree] [style:knob]", 90, -180, 180, 1) / TWOPI : si.smoo);
+lfo_switch = lfo_group(hslider("[1] LFO Waveform [abbrev:Waveform] [symbol:waveform] [style:radio{'Sine':0;'Triangle':1}]", 1, 0, 1, 1));
+lfo_freq_l = lfo_group(hslider("[2] LFO L Frequency [abbrev:Freq L] [symbol:freq_l] [unit:Hz] [style:knob]", 0.8, 0.001, 10, 0.01));
+lfo_freq_r = lfo_group(hslider("[3] LFO R Frequency Ratio [abbrev:F. Ratio] [symbol:freq_r_ratio] [style:knob]", 1.0, 0.01, 2, 0.01)) * lfo_freq_l;
+lfo_phase_r = lfo_group(hslider("[4] LFO L/R Phase Offset [abbrev:Ph. Offset] [symbol:phase_offset] [unit:degree] [style:knob]", 90, -180, 180, 1) / TWOPI : si.smoo);
 
 // Output section
 
 out_group(x) = hgroup("Output", x);
-dry = out_group(hslider("[1] Dry [unit:dB] [style:knob]", -3.5, -60, 10, 0.1) : ba.db2linear);
-wet = out_group(hslider("[2] Wet [unit:dB] [style:knob]", -3.5, -60, 10, 0.1) : ba.db2linear);
+dry = out_group(hslider("[1] Dry Gain [abbrev:Dry] [symbol:dryy] [unit:dB] [style:knob]", -3.5, -60, 10, 0.1) : ba.db2linear);
+wet = out_group(hslider("[2] Wet Gain [abbrev:Wet] [symbol:wet] [unit:dB] [style:knob]", -3.5, -60, 10, 0.1) : ba.db2linear);
 
 // Modulation LFOs
 

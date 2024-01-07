@@ -8,7 +8,7 @@
 // Author: Christopher Arndt
 // Copyright: 
 // License: MIT License
-// Version: 0.5
+// Version: 0.6
 //------------------------------------------------------------------------------
 
 
@@ -170,7 +170,7 @@ class mydsp : public dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
 		m->declare("basics.lib/version", "1.11.1");
-		m->declare("compile_options", "-a /home/chris/tmp/tmp2s0k114m.cpp -lang cpp -ct 1 -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /home/chris/tmp/tmpnzu2m50d.cpp -lang cpp -ct 1 -es 1 -mcd 16 -single -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "1.1.0");
 		m->declare("description", "A versatile stereo chorus effect");
@@ -207,7 +207,7 @@ class mydsp : public dsp {
 		m->declare("platform.lib/version", "1.3.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "1.5.0");
-		m->declare("version", "0.5");
+		m->declare("version", "0.6");
 	}
 
 	FAUSTPP_VIRTUAL int getNumInputs() {
@@ -311,48 +311,68 @@ class mydsp : public dsp {
 		ui_interface->openVerticalBox("CChorus");
 		ui_interface->openHorizontalBox("Delay");
 		ui_interface->declare(&fHslider5, "1", "");
+		ui_interface->declare(&fHslider5, "abbrev", "Delay");
 		ui_interface->declare(&fHslider5, "style", "knob");
+		ui_interface->declare(&fHslider5, "symbol", "delay");
 		ui_interface->declare(&fHslider5, "unit", "ms");
-		ui_interface->addHorizontalSlider("Delay", &fHslider5, FAUSTFLOAT(3.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(2e+01f), FAUSTFLOAT(0.001f));
+		ui_interface->addHorizontalSlider("Delay Length", &fHslider5, FAUSTFLOAT(3.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(2e+01f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider4, "2", "");
+		ui_interface->declare(&fHslider4, "abbrev", "Mod. Amount");
 		ui_interface->declare(&fHslider4, "style", "knob");
-		ui_interface->addHorizontalSlider("Mod Amount", &fHslider4, FAUSTFLOAT(0.35f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
+		ui_interface->declare(&fHslider4, "symbol", "mod_amount");
+		ui_interface->addHorizontalSlider("Modulation Amount", &fHslider4, FAUSTFLOAT(0.35f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider1, "3", "");
+		ui_interface->declare(&fHslider1, "abbrev", "LPF");
 		ui_interface->declare(&fHslider1, "scale", "log");
 		ui_interface->declare(&fHslider1, "style", "knob");
+		ui_interface->declare(&fHslider1, "symbol", "lpf_cutoff");
 		ui_interface->declare(&fHslider1, "unit", "Hz");
 		ui_interface->addHorizontalSlider("LPF Cutoff", &fHslider1, FAUSTFLOAT(5e+03f), FAUSTFLOAT(2e+01f), FAUSTFLOAT(1e+04f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fHslider0, "4", "");
+		ui_interface->declare(&fHslider0, "abbrev", "HPF");
 		ui_interface->declare(&fHslider0, "scale", "log");
 		ui_interface->declare(&fHslider0, "style", "knob");
+		ui_interface->declare(&fHslider0, "symbol", "hpf_cutoff");
 		ui_interface->declare(&fHslider0, "unit", "Hz");
 		ui_interface->addHorizontalSlider("HPF Cutoff", &fHslider0, FAUSTFLOAT(2e+01f), FAUSTFLOAT(2e+01f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 		ui_interface->openHorizontalBox("LFO");
 		ui_interface->declare(&fHslider2, "1", "");
+		ui_interface->declare(&fHslider2, "abbrev", "Waveform");
 		ui_interface->declare(&fHslider2, "style", "radio{'Sine':0;'Triangle':1}");
-		ui_interface->addHorizontalSlider("Waveform", &fHslider2, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider2, "symbol", "waveform");
+		ui_interface->addHorizontalSlider("LFO Waveform", &fHslider2, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider3, "2", "");
+		ui_interface->declare(&fHslider3, "abbrev", "Freq L");
 		ui_interface->declare(&fHslider3, "style", "knob");
+		ui_interface->declare(&fHslider3, "symbol", "freq_l");
 		ui_interface->declare(&fHslider3, "unit", "Hz");
-		ui_interface->addHorizontalSlider("Freq L", &fHslider3, FAUSTFLOAT(0.8f), FAUSTFLOAT(0.001f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("LFO L Frequency", &fHslider3, FAUSTFLOAT(0.8f), FAUSTFLOAT(0.001f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider9, "3", "");
+		ui_interface->declare(&fHslider9, "abbrev", "F. Ratio");
 		ui_interface->declare(&fHslider9, "style", "knob");
-		ui_interface->addHorizontalSlider("Freq R Ratio", &fHslider9, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f), FAUSTFLOAT(2.0f), FAUSTFLOAT(0.01f));
+		ui_interface->declare(&fHslider9, "symbol", "freq_r_ratio");
+		ui_interface->addHorizontalSlider("LFO R Frequency Ratio", &fHslider9, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f), FAUSTFLOAT(2.0f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider8, "4", "");
+		ui_interface->declare(&fHslider8, "abbrev", "Ph. Offset");
 		ui_interface->declare(&fHslider8, "style", "knob");
+		ui_interface->declare(&fHslider8, "symbol", "phase_offset");
 		ui_interface->declare(&fHslider8, "unit", "degree");
-		ui_interface->addHorizontalSlider("L/R Phase Offset", &fHslider8, FAUSTFLOAT(9e+01f), FAUSTFLOAT(-1.8e+02f), FAUSTFLOAT(1.8e+02f), FAUSTFLOAT(1.0f));
+		ui_interface->addHorizontalSlider("LFO L/R Phase Offset", &fHslider8, FAUSTFLOAT(9e+01f), FAUSTFLOAT(-1.8e+02f), FAUSTFLOAT(1.8e+02f), FAUSTFLOAT(1.0f));
 		ui_interface->closeBox();
 		ui_interface->openHorizontalBox("Output");
 		ui_interface->declare(&fHslider7, "1", "");
+		ui_interface->declare(&fHslider7, "abbrev", "Dry");
 		ui_interface->declare(&fHslider7, "style", "knob");
+		ui_interface->declare(&fHslider7, "symbol", "dryy");
 		ui_interface->declare(&fHslider7, "unit", "dB");
-		ui_interface->addHorizontalSlider("Dry", &fHslider7, FAUSTFLOAT(-3.5f), FAUSTFLOAT(-6e+01f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.1f));
+		ui_interface->addHorizontalSlider("Dry Gain", &fHslider7, FAUSTFLOAT(-3.5f), FAUSTFLOAT(-6e+01f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fHslider6, "2", "");
+		ui_interface->declare(&fHslider6, "abbrev", "Wet");
 		ui_interface->declare(&fHslider6, "style", "knob");
+		ui_interface->declare(&fHslider6, "symbol", "wet");
 		ui_interface->declare(&fHslider6, "unit", "dB");
-		ui_interface->addHorizontalSlider("Wet", &fHslider6, FAUSTFLOAT(-3.5f), FAUSTFLOAT(-6e+01f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.1f));
+		ui_interface->addHorizontalSlider("Wet Gain", &fHslider6, FAUSTFLOAT(-3.5f), FAUSTFLOAT(-6e+01f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 		ui_interface->closeBox();
 	}
@@ -500,10 +520,10 @@ const char *CChorus::parameter_label(unsigned index) noexcept
     switch (index) {
     
     case 0:
-        return "Delay";
+        return "Delay Length";
     
     case 1:
-        return "Mod Amount";
+        return "Modulation Amount";
     
     case 2:
         return "LPF Cutoff";
@@ -512,22 +532,22 @@ const char *CChorus::parameter_label(unsigned index) noexcept
         return "HPF Cutoff";
     
     case 4:
-        return "Waveform";
+        return "LFO Waveform";
     
     case 5:
-        return "Freq L";
+        return "LFO L Frequency";
     
     case 6:
-        return "Freq R Ratio";
+        return "LFO R Frequency Ratio";
     
     case 7:
-        return "L/R Phase Offset";
+        return "LFO L/R Phase Offset";
     
     case 8:
-        return "Dry";
+        return "Dry Gain";
     
     case 9:
-        return "Wet";
+        return "Wet Gain";
     
     default:
         return 0;
@@ -539,34 +559,34 @@ const char *CChorus::parameter_short_label(unsigned index) noexcept
     switch (index) {
     
     case 0:
-        return "";
+        return "Delay";
     
     case 1:
-        return "";
+        return "Mod. Amount";
     
     case 2:
-        return "";
+        return "LPF";
     
     case 3:
-        return "";
+        return "HPF";
     
     case 4:
-        return "";
+        return "Waveform";
     
     case 5:
-        return "";
+        return "Freq L";
     
     case 6:
-        return "";
+        return "F. Ratio";
     
     case 7:
-        return "";
+        return "Ph. Offset";
     
     case 8:
-        return "";
+        return "Dry";
     
     case 9:
-        return "";
+        return "Wet";
     
     default:
         return 0;
@@ -578,34 +598,34 @@ const char *CChorus::parameter_symbol(unsigned index) noexcept
     switch (index) {
     
     case 0:
-        return "Delay";
+        return "delay";
     
     case 1:
-        return "Mod_Amount";
+        return "mod_amount";
     
     case 2:
-        return "LPF_Cutoff";
+        return "lpf_cutoff";
     
     case 3:
-        return "HPF_Cutoff";
+        return "hpf_cutoff";
     
     case 4:
-        return "Waveform";
+        return "waveform";
     
     case 5:
-        return "Freq_L";
+        return "freq_l";
     
     case 6:
-        return "Freq_R_Ratio";
+        return "freq_r_ratio";
     
     case 7:
-        return "L_R_Phase_Offset";
+        return "phase_offset";
     
     case 8:
-        return "Dry";
+        return "dryy";
     
     case 9:
-        return "Wet";
+        return "wet";
     
     default:
         return 0;
@@ -846,122 +866,122 @@ void CChorus::set_parameter(unsigned index, float value) noexcept
 }
 
 
-float CChorus::get_Delay() const noexcept
+float CChorus::get_delay() const noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     return dsp.fHslider5;
 }
 
-float CChorus::get_Mod_Amount() const noexcept
+float CChorus::get_mod_amount() const noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     return dsp.fHslider4;
 }
 
-float CChorus::get_LPF_Cutoff() const noexcept
+float CChorus::get_lpf_cutoff() const noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     return dsp.fHslider1;
 }
 
-float CChorus::get_HPF_Cutoff() const noexcept
+float CChorus::get_hpf_cutoff() const noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     return dsp.fHslider0;
 }
 
-float CChorus::get_Waveform() const noexcept
+float CChorus::get_waveform() const noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     return dsp.fHslider2;
 }
 
-float CChorus::get_Freq_L() const noexcept
+float CChorus::get_freq_l() const noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     return dsp.fHslider3;
 }
 
-float CChorus::get_Freq_R_Ratio() const noexcept
+float CChorus::get_freq_r_ratio() const noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     return dsp.fHslider9;
 }
 
-float CChorus::get_L_R_Phase_Offset() const noexcept
+float CChorus::get_phase_offset() const noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     return dsp.fHslider8;
 }
 
-float CChorus::get_Dry() const noexcept
+float CChorus::get_dryy() const noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     return dsp.fHslider7;
 }
 
-float CChorus::get_Wet() const noexcept
+float CChorus::get_wet() const noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     return dsp.fHslider6;
 }
 
 
-void CChorus::set_Delay(float value) noexcept
+void CChorus::set_delay(float value) noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     dsp.fHslider5 = value;
 }
 
-void CChorus::set_Mod_Amount(float value) noexcept
+void CChorus::set_mod_amount(float value) noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     dsp.fHslider4 = value;
 }
 
-void CChorus::set_LPF_Cutoff(float value) noexcept
+void CChorus::set_lpf_cutoff(float value) noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     dsp.fHslider1 = value;
 }
 
-void CChorus::set_HPF_Cutoff(float value) noexcept
+void CChorus::set_hpf_cutoff(float value) noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     dsp.fHslider0 = value;
 }
 
-void CChorus::set_Waveform(float value) noexcept
+void CChorus::set_waveform(float value) noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     dsp.fHslider2 = value;
 }
 
-void CChorus::set_Freq_L(float value) noexcept
+void CChorus::set_freq_l(float value) noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     dsp.fHslider3 = value;
 }
 
-void CChorus::set_Freq_R_Ratio(float value) noexcept
+void CChorus::set_freq_r_ratio(float value) noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     dsp.fHslider9 = value;
 }
 
-void CChorus::set_L_R_Phase_Offset(float value) noexcept
+void CChorus::set_phase_offset(float value) noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     dsp.fHslider8 = value;
 }
 
-void CChorus::set_Dry(float value) noexcept
+void CChorus::set_dryy(float value) noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     dsp.fHslider7 = value;
 }
 
-void CChorus::set_Wet(float value) noexcept
+void CChorus::set_wet(float value) noexcept
 {
     mydsp &dsp = static_cast<mydsp &>(*fDsp);
     dsp.fHslider6 = value;

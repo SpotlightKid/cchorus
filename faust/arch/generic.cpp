@@ -148,7 +148,7 @@ const char *{{Identifier}}::parameter_short_label(unsigned index) noexcept
     switch (index) {
     {% for w in active + passive %}
     case {{loop.index0}}:
-        return {{cstr(w.meta.abbrev|default(""))}};
+        return {{cstr(w.meta.abbrev|default(w.label)|truncate(16, true))}};
     {% endfor %}
     default:
         return 0;
