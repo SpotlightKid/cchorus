@@ -91,6 +91,21 @@ void PluginCChorus::initParameter(uint32_t index, Parameter& parameter) {
         if (dsp->parameter_is_trigger(index))
             parameter.hints |= kParameterIsTrigger;
     }
+    if (index == Waveform) {
+        // Workaround: hardcode enum values of Waveform param until faustpp can
+        // provide the values from meta-data of menu/radio controls
+        parameter.hints |= kParameterIsInteger;
+        parameter.enumValues.count = 2;
+        parameter.enumValues.restrictedMode = true;
+        {
+            ParameterEnumerationValue* const waveforms = new ParameterEnumerationValue[2];
+            parameter.enumValues.values = waveforms;
+            waveforms[0].label = "Sine";
+            waveforms[0].value = 0;
+            waveforms[1].label = "Triangle";
+            waveforms[1].value = 1;
+        }
+    }
 }
 
 /**
