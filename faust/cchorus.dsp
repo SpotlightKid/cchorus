@@ -8,7 +8,7 @@ import("stdfaust.lib");
 
 PI = ma.PI;
 TWOPI = 2.0 * ma.PI;
-MAX_DELAY_MS = 20;
+MAX_DELAY_MS = 30.0;
 
 // Parameters
 
