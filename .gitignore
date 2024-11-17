@@ -8,14 +8,24 @@
 *.so
 *.zip
 
-.kdev_include_paths
-.kdev4/
 .DS_Store
 
+bin-w32/cchorus-vst.*
+bin-w32/cchorus.clap
+bin-w32/cchorus.exe
+bin-w32/cchorus.lv2
+bin-w32/cchorus.vst3
+bin-w64/cchorus-vst.*
+bin-w64/cchorus.clap
+bin-w64/cchorus.exe
+bin-w64/cchorus.lv2
+bin-w64/cchorus.vst3
 bin/cchorus
-bin/cchorus.exe
-bin/cchorus-ladspa.*
 bin/cchorus-dssi.*
+bin/cchorus-ladspa.*
 bin/cchorus-vst.*
+bin/cchorus.clap
 bin/cchorus.lv2/
+bin/cchorus.vst3
 build/
+dist/
