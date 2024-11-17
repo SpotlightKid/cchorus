@@ -16,7 +16,7 @@ MAX_DELAY_MS = 30.0;
 
 del_group(x) = hgroup("Delay", x);
 delay_ms = del_group(hslider("[1] Delay Length [abbrev:Delay] [symbol:delay] [unit:ms]", 3.5, 0, MAX_DELAY_MS, 0.001) : si.smoo);
-delay_mod = del_group(hslider("[2] Modulation Amount [abbrev:Mod. Amount] [symbol:mod_amount] [style:knob]", 0.35, 0, 1, 0.001) : si.smoo);
+delay_mod = del_group(hslider("[2] Modulation Amount [abbrev:Mod. Amount] [symbol:mod_amount] [style:knob]", 0.35, 0.001, 1, 0.001) : si.smoo);
 lpf_cutoff = del_group(hslider("[3] LPF Cutoff [abbrev:LPF] [symbol:lpf_cutoff] [unit:Hz] [scale:log] [style:knob]", 5000, 20, 10000, 0.1)): si.smoo;
 hpf_cutoff = del_group(hslider("[4] HPF Cutoff [abbrev:HPF] [symbol:hpf_cutoff] [unit:Hz] [scale:log] [style:knob]", 20, 20, 5000, 0.1)): si.smoo;
 
