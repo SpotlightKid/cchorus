@@ -31,7 +31,7 @@ lfo_phase_r = lfo_group(hslider("[4] LFO L/R Phase Offset [abbrev:Ph. Offset] [s
 // Output section
 
 out_group(x) = hgroup("Output", x);
-dry = out_group(hslider("[1] Dry Gain [abbrev:Dry] [symbol:dryy] [unit:dB] [style:knob]", -3.5, -60, 10, 0.1) : ba.db2linear);
+dry = out_group(hslider("[1] Dry Gain [abbrev:Dry] [symbol:dry] [unit:dB] [style:knob]", -3.5, -60, 10, 0.1) : ba.db2linear);
 wet = out_group(hslider("[2] Wet Gain [abbrev:Wet] [symbol:wet] [unit:dB] [style:knob]", -3.5, -60, 10, 0.1) : ba.db2linear);
 
 // Modulation LFOs
