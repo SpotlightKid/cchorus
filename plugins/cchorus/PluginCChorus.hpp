@@ -155,26 +155,28 @@ struct Preset {
 };
 
 const Preset factoryPresets[] = {
+    //{
+    //    "Preset name",  // preset name
+    //    {0.0, ...}      // array of PluginCChorus::paramCount float param values
+    //},
     {
         "Default",
         {
-            3.5f,    // Delay
-            0.35f,   // Mod_Amount
-            6000.0f, // LPF_Cutoff
-            100.0f,  // HPF_Cutoff
-            1.0f,    // Waveform
-            0.8f,    // Freq_L
-            1.0f,    // Freq_R_Ratio
-            90.0f,   // Phase_Offset
-            -3.5f,   // Dry
-            -3.5f,   // Wet
-            0.0,     // BypassProcess
+            3.5,    // p_delay
+            0.35,   // p_mod_amount
+            10000.0,// p_lpf_cutoff
+            750.0,  // p_eq_freq
+            0.0,    // p_eq_gain
+            0.7,    // p_eq_q
+            1.0,    // p_waveform
+            0.8,    // p_freq_l
+            1.0,    // p_freq_r_ratio
+            90.0,   // p_phase_offset
+            -3.5,   // p_dry
+            -3.5,   // p_wet
+            0.0     // bypass_process
         }
     }
-    //,{
-    //    "Another preset",  // preset name
-    //    {-14.0f, ...}      // array of PluginCChorus::paramCount float param values
-    //}
 };
 
 const uint presetCount = sizeof(factoryPresets) / sizeof(Preset);
