@@ -61,7 +61,7 @@ public:
         p_phase_offset,
         p_dry,
         p_wet,
-        BypassProcess,
+        bypass_process,
         paramCount
     };
 

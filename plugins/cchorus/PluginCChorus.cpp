@@ -61,7 +61,7 @@ void PluginCChorus::initParameter(uint32_t index, Parameter& parameter) {
     if (index >= paramCount)
         return;
 
-    if (index == BypassProcess) {
+    if (index == bypass_process) {
         parameter.name = "Bypass";
         parameter.shortName = "Bypass";
         parameter.symbol = "bypass";
@@ -135,7 +135,7 @@ void PluginCChorus::sampleRateChanged(double newSampleRate) {
   Get the current value of a parameter.
 */
 float PluginCChorus::getParameterValue(uint32_t index) const {
-    if (index == BypassProcess) {
+    if (index == bypass_process) {
         return param_bypass ? 1.0 : 0.0;
     }
     else {
@@ -150,7 +150,7 @@ void PluginCChorus::setParameterValue(uint32_t index, float value) {
     if (index >= paramCount)
         return;
 
-    if (index == BypassProcess) {
+    if (index == bypass_process) {
         param_bypass = value > 0.0f ? 1.0 : 0.0;
     }
     else {
