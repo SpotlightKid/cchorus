@@ -2,6 +2,9 @@
 
 A versatile stereo chorus effect
 
+<p align="center"><img title="Generic LV2 UI in Carla" src="screenshot-carla.png" width="541"></center>
+
+
 ## Formats
 
 This plugin is available in the following plug-in formats by default:
