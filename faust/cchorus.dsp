@@ -12,13 +12,21 @@ MAX_DELAY_MS = 30.0;
 
 // Parameters
 
+// Input Section
+
+inp_group(x) = hgroup("Input", x);
+
+peak_freq = inp_group(hslider("[1] Pre-EQ Freqency [abbrev:EQ Freq] [symbol:eq_freq] [unit:Hz] [scale:log] [style:knob]", 750, 20, 4000, 0.1)): si.smoo;
+peak_gain = inp_group(hslider("[2] Pre-EQ Gain [abbrev:EQ Gain] [symbol:eq_gain] [unit:db] [style:knob]", 0, -12, 12, 0.1)): si.smoo;
+peak_q = inp_group(hslider("[3] Pre-EQ Q [abbrev:EQ Q] [symbol:eq_q] [style:knob]", 0.7, 0.1, 16.0, 0.1)): si.smoo;
+
 // Delay section
 
 del_group(x) = hgroup("Delay", x);
 delay_ms = del_group(hslider("[1] Delay Length [abbrev:Delay] [symbol:delay] [unit:ms]", 3.5, 0, MAX_DELAY_MS, 0.001) : si.smoo);
 delay_mod = del_group(hslider("[2] Modulation Amount [abbrev:Mod. Amount] [symbol:mod_amount] [style:knob]", 0.35, 0.001, 1, 0.001) : si.smoo);
-lpf_cutoff = del_group(hslider("[3] LPF Cutoff [abbrev:LPF] [symbol:lpf_cutoff] [unit:Hz] [scale:log] [style:knob]", 5000, 20, 10000, 0.1)): si.smoo;
-hpf_cutoff = del_group(hslider("[4] HPF Cutoff [abbrev:HPF] [symbol:hpf_cutoff] [unit:Hz] [scale:log] [style:knob]", 20, 20, 5000, 0.1)): si.smoo;
+
+lpf_cutoff = del_group(hslider("[3] Post-Delay LPF Cutoff [abbrev:LPF] [symbol:lpf_cutoff] [unit:Hz] [scale:log] [style:knob]", 10000, 20, 10000, 0.1)): si.smoo;
 
 // LFO section
 
@@ -55,19 +63,19 @@ delay_r = delay_ms + delay_ms * delay_mod * lfo_r;
 
 // Delay filters
 lpf = fi.lowpass(2, lpf_cutoff);
-hpf = fi.highpass(2, hpf_cutoff);
+peak_eq = fi.peak_eq_cq(peak_gain, peak_freq, peak_q);
 
 // Chorus
 
-chorus_mono(curdel, filter, dry, wet) =  _ <: _ * dry + wet_signal * wet
+chorus_mono(curdel, prefilter, postfilter, dry, wet) =  _ : prefilter <: _ * dry + wet_signal * wet
 with {
     dmax = ma.SR * 0.001 * MAX_DELAY_MS * 2;  // Mod Amount = 1 => double max delay time
-    wet_signal = de.fdelay(dmax, curdel * 0.001 * ma.SR) : filter;
+    wet_signal = de.fdelay(dmax, curdel * 0.001 * ma.SR) : postfilter;
 };
 
 // L/R FX chains
 
-chorus_l = chorus_mono(delay_l, lpf : hpf, dry, wet);
-chorus_r = chorus_mono(delay_r, lpf : hpf, dry, wet);
+chorus_l = chorus_mono(delay_l, peak_eq, lpf, dry, wet);
+chorus_r = chorus_mono(delay_r, peak_eq, lpf, dry, wet);
 
 process = chorus_l, chorus_r;

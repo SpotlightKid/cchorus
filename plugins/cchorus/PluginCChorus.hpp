@@ -49,16 +49,18 @@ START_NAMESPACE_DISTRHO
 class PluginCChorus : public Plugin {
 public:
     enum Parameters {
-        Delay,
-        Mod_Amount,
-        LPF_Cutoff,
-        HPF_Cutoff,
-        Waveform,
-        Freq_L,
-        Freq_R_Ratio,
-        Phase_Offset,
-        Dry,
-        Wet,
+        p_delay,
+        p_mod_amount,
+        p_lpf_cutoff,
+        p_eq_freq,
+        p_eq_gain,
+        p_eq_q,
+        p_waveform,
+        p_freq_l,
+        p_freq_r_ratio,
+        p_phase_offset,
+        p_dry,
+        p_wet,
         BypassProcess,
         paramCount
     };
