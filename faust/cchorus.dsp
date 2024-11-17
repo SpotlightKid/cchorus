@@ -23,7 +23,7 @@ hpf_cutoff = del_group(hslider("[4] HPF Cutoff [abbrev:HPF] [symbol:hpf_cutoff] 
 // LFO section
 
 lfo_group(x) = hgroup("LFO", x);
-lfo_switch = lfo_group(vslider("[1] LFO Waveform [abbrev:Waveform] [symbol:waveform] [style:menu{'Sine':0;'Triangle':1}]", 1, 0, 1, 1));
+lfo_switch = lfo_group(hslider("[1] LFO Waveform [abbrev:Waveform] [symbol:waveform] [style:radio{'Sine':0;'Triangle':1}]", 1, 0, 1, 1));
 lfo_freq_l = lfo_group(hslider("[2] LFO L Frequency [abbrev:Freq L] [symbol:freq_l] [unit:Hz] [style:knob]", 0.8, 0.01, 10, 0.01));
 lfo_freq_r = lfo_group(hslider("[3] LFO R Frequency Ratio [abbrev:F. Ratio] [symbol:freq_r_ratio] [style:knob]", 1.0, 0.01, 2, 0.01)) * lfo_freq_l;
 lfo_phase_r = lfo_group(hslider("[4] LFO L/R Phase Offset [abbrev:Ph. Offset] [symbol:phase_offset] [unit:degree] [style:knob]", 90, -180, 180, 1) / TWOPI : si.smoo);
