@@ -113,7 +113,7 @@ This software was created by *Christopher Arndt*.
 ## License
 
 This plugin is released under the *MIT* license. Please see the
-[LICENSE](./LICENSE) file for details.
+[LICENSE.md](./LICENSE.md) file for details.
 
 
 ## Acknowledgements

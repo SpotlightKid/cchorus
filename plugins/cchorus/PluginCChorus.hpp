@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: MIT
  *
- * Copyright (C) 2022 Christopher Arndt <dev@chrisarndt.de>
+ * Copyright (C) 2022-2024 Christopher Arndt <dev@chrisarndt.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
