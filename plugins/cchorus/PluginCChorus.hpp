@@ -160,7 +160,7 @@ const Preset factoryPresets[] = {
     //    {0.0, ...}      // array of PluginCChorus::paramCount float param values
     //},
     {
-        "Default",
+        "[F] Default",
         {
             3.5,    // p_delay
             0.35,   // p_mod_amount
@@ -176,7 +176,13 @@ const Preset factoryPresets[] = {
             -3.5,   // p_wet
             0.0     // bypass_process
         }
-    }
+    },
+    { "[F] Picked Clean", {3.5, 0.3, 4000.0, 80.0, -6.0, 1.0, 1.0, 1.4, 1.0, 90.0, -3.5, -3.5, 0.0}},
+    { "[F] Double Play", {1.2, 0.4, 10000.0, 3200.0, 3.5, 0.7, 1.0, 1.5, 1.0, 60.0, -1.0, -2.5, 0.0}},
+    { "[F] Air Supply", {2.95, 0.45, 700.0, 150.0, -4.5, 1.0, 0.0, 2.3, 0.5, 110.0, -2.0, -4.0, 0.0}},
+    { "[F] Open Mic Night", {19.0, 0.02, 4000.0, 260.0, -5.0, 0.55, 0.0, 2.4, 1.5, 0.0, -3.0, -3.0, 0.0}},
+    { "[F] Rotary Club", {22.5, 0.02, 4500.0, 1500.0, 6.4, 0.7, 0.0, 4.8, 1.5, 89.0, -3.0, -5.0, 0.0}},
+    { "[F] Hairy Eighty-Six", {3.2, 0.4, 3800.0, 915.0, 3.0, 1.0, 1.0, 0.8, 2.0, 50.0, -1.5, -1.5, 0.0}},
 };
 
 const uint presetCount = sizeof(factoryPresets) / sizeof(Preset);
