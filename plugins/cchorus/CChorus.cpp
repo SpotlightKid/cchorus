@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
 // This file was generated using the Faust compiler (https://faust.grame.fr),
-// and the Faust post-processor (https://github.com/jpcima/faustpp).
+// and the Faust post-processor (https://github.com/SpotlightKid/faustdoctor).
 //
 // Source: cchorus.dsp
 // Name: CChorus
@@ -8,8 +8,8 @@
 // Copyright: 
 // License: MIT License
 // Version: 0.6
-// FAUST version: 2.75.17
-// FAUST compilation options: -a /home/chris/tmp/tmp9x18968b.cpp -lang cpp -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+// FAUST version: 2.76.0
+// FAUST compilation options: -a /home/chris/tmp/tmpvgnhasfj.cpp -lang cpp -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 //------------------------------------------------------------------------------
 
 
@@ -58,13 +58,13 @@ typedef CChorus::BasicDsp dsp;
 
 } // namespace
 
-#define FAUSTPP_VIRTUAL // do not declare any methods virtual
-#define FAUSTPP_PRIVATE public // do not hide any members
-#define FAUSTPP_PROTECTED public // do not hide any members
+#define FAUSTDR_VIRTUAL // do not declare any methods virtual
+#define FAUSTDR_PRIVATE public // do not hide any members
+#define FAUSTDR_PROTECTED public // do not hide any members
 
 // define the DSP in the anonymous namespace
-#define FAUSTPP_BEGIN_NAMESPACE namespace {
-#define FAUSTPP_END_NAMESPACE }
+#define FAUSTDR_BEGIN_NAMESPACE namespace {
+#define FAUSTDR_END_NAMESPACE }
 
 
 #if defined(__GNUC__)
@@ -72,24 +72,24 @@ typedef CChorus::BasicDsp dsp;
 #   pragma GCC diagnostic ignored "-Wunused-parameter"
 #endif
 
-#ifndef FAUSTPP_PRIVATE
-#   define FAUSTPP_PRIVATE private
+#ifndef FAUSTDR_PRIVATE
+#   define FAUSTDR_PRIVATE private
 #endif
-#ifndef FAUSTPP_PROTECTED
-#   define FAUSTPP_PROTECTED protected
+#ifndef FAUSTDR_PROTECTED
+#   define FAUSTDR_PROTECTED protected
 #endif
-#ifndef FAUSTPP_VIRTUAL
-#   define FAUSTPP_VIRTUAL virtual
-#endif
-
-#ifndef FAUSTPP_BEGIN_NAMESPACE
-#   define FAUSTPP_BEGIN_NAMESPACE
-#endif
-#ifndef FAUSTPP_END_NAMESPACE
-#   define FAUSTPP_END_NAMESPACE
+#ifndef FAUSTDR_VIRTUAL
+#   define FAUSTDR_VIRTUAL virtual
 #endif
 
-FAUSTPP_BEGIN_NAMESPACE
+#ifndef FAUSTDR_BEGIN_NAMESPACE
+#   define FAUSTDR_BEGIN_NAMESPACE
+#endif
+#ifndef FAUSTDR_END_NAMESPACE
+#   define FAUSTDR_END_NAMESPACE
+#endif
+
+FAUSTDR_BEGIN_NAMESPACE
 
 // END PREAMBLE
 // START INTRINSICS
@@ -99,12 +99,12 @@ FAUSTPP_BEGIN_NAMESPACE
 #define FAUSTFLOAT float
 #endif 
 
-FAUSTPP_END_NAMESPACE
+FAUSTDR_END_NAMESPACE
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <math.h>
-FAUSTPP_BEGIN_NAMESPACE
+FAUSTDR_BEGIN_NAMESPACE
 
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS mydsp
@@ -127,7 +127,7 @@ static float mydsp_faustpower2_f(float value) {
 
 class mydsp : public dsp {
 	
- FAUSTPP_PRIVATE:
+ FAUSTDR_PRIVATE:
 	
 	int fSampleRate;
 	float fConst0;
@@ -177,7 +177,7 @@ class mydsp : public dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
 		m->declare("basics.lib/version", "1.19.1");
-		m->declare("compile_options", "-a /home/chris/tmp/tmp9x18968b.cpp -lang cpp -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
+		m->declare("compile_options", "-a /home/chris/tmp/tmpvgnhasfj.cpp -lang cpp -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "1.1.0");
 		m->declare("description", "A versatile stereo chorus effect");
@@ -221,17 +221,17 @@ class mydsp : public dsp {
 		m->declare("version", "0.6");
 	}
 
-	FAUSTPP_VIRTUAL int getNumInputs() {
+	FAUSTDR_VIRTUAL int getNumInputs() {
 		return 2;
 	}
-	FAUSTPP_VIRTUAL int getNumOutputs() {
+	FAUSTDR_VIRTUAL int getNumOutputs() {
 		return 2;
 	}
 	
 	static void classInit(int sample_rate) {
 	}
 	
-	FAUSTPP_VIRTUAL void instanceConstants(int sample_rate) {
+	FAUSTDR_VIRTUAL void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = 44.1f / fConst0;
@@ -244,7 +244,7 @@ class mydsp : public dsp {
 		fConst8 = 7.018733f / fConst0;
 	}
 	
-	FAUSTPP_VIRTUAL void instanceResetUserInterface() {
+	FAUSTDR_VIRTUAL void instanceResetUserInterface() {
 		fHslider0 = FAUSTFLOAT(1e+04f);
 		fHslider1 = FAUSTFLOAT(7.5e+02f);
 		fHslider2 = FAUSTFLOAT(0.0f);
@@ -259,7 +259,7 @@ class mydsp : public dsp {
 		fHslider11 = FAUSTFLOAT(1.0f);
 	}
 	
-	FAUSTPP_VIRTUAL void instanceClear() {
+	FAUSTDR_VIRTUAL void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
 			fRec0[l0] = 0.0f;
 		}
@@ -308,26 +308,26 @@ class mydsp : public dsp {
 		}
 	}
 	
-	FAUSTPP_VIRTUAL void init(int sample_rate) {
+	FAUSTDR_VIRTUAL void init(int sample_rate) {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
 	
-	FAUSTPP_VIRTUAL void instanceInit(int sample_rate) {
+	FAUSTDR_VIRTUAL void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
 		instanceClear();
 	}
 	
-	FAUSTPP_VIRTUAL mydsp* clone() {
+	FAUSTDR_VIRTUAL mydsp* clone() {
 		return new mydsp();
 	}
 	
-	FAUSTPP_VIRTUAL int getSampleRate() {
+	FAUSTDR_VIRTUAL int getSampleRate() {
 		return fSampleRate;
 	}
 	
-	FAUSTPP_VIRTUAL void buildUserInterface(UI* ui_interface) {
+	FAUSTDR_VIRTUAL void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("CChorus");
 		ui_interface->openHorizontalBox("Delay");
 		ui_interface->declare(&fHslider7, "1", "");
@@ -409,7 +409,7 @@ class mydsp : public dsp {
 		ui_interface->closeBox();
 	}
 	
-	FAUSTPP_VIRTUAL void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
+	FAUSTDR_VIRTUAL void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
@@ -500,7 +500,7 @@ class mydsp : public dsp {
 };
 // END CLASS CODE
 // START EPILOG
-FAUSTPP_END_NAMESPACE
+FAUSTDR_END_NAMESPACE
 
 
 
