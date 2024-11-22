@@ -7,7 +7,7 @@ A versatile stereo chorus effect
 
 ## Formats
 
-This plugin is available in the following plug-in formats by default:
+This plugin is available in the following plugin formats by default:
 
 * [CLAP] (`de.chrisarndt.cchorus`)
 * [LADSPA] (`cchorus-ladspa.so`)
@@ -102,7 +102,7 @@ variables differ depending on the target OS.*
 The [CLAP], [LV2], [LADSPA], [VST2][vst] (Xaymar VST2SDK) and [VST3][vst]
 headers are included in the [DPF] framework, which is integrated as a Git
 sub-module. These need not be installed separately to build the software in
-the respective plug-in formats.
+the respective plugin formats.
 
 `faustpp` and FAUST are only needed to re-generate C++ source and header files
 if the FAUST DSP source files in the `faust` directory are changed.
